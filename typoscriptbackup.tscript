@@ -1,0 +1,435 @@
+# (c) Marc Ernst 2015
+# i.A. für Y7Group e.K.
+# Rheinstr. 99 - 64295 Darmstadt
+
+
+# Indexed Search Konfiguration
+## Suche aktivieren
+  page.config.index_enable = 1
+  page.config.local_all = de_DE
+  page.config.language = de
+
+# RealURL Config
+
+ config.prefixLocalAnchors = all
+ config.simulateStaticDocuments = 0
+ config.baseURL = http://dev.mt-autoboerse.de
+ config.tx_realurl_enable = 1
+
+## Eigenes Template zuweisen
+
+plugin.tx_indexedsearch {
+  
+ templateFile = fileadmin/indexed_search.tmpl
+  
+  topBrowserWrap=<div class="browsebox-test">|</div>
+  pageWrap=<span>|</span>
+  activePageWrap=<span class="act">|</span>
+  browseBoxWrap=
+  
+  #_CSS_DEFAULT_STYLE >
+  _LOCAL_LANG.de {
+    pi_list_browseresults_prev = <<
+    pi_list_browseresults_page =
+    pi_list_browseresults_next = >>
+    backToList = Zurück zu: %s
+  }
+  
+  show.advancedSearchLink = 0
+  
+  # standardmässig mit 'Wortteil' suchen statt mit ganzem Wort
+       _DEFAULT_PI_VARS.type = 1
+  # standardmäßig mit erweiterter Suche starten
+       _DEFAULT_PI_VARS.ext = 1
+  
+      
+  # Anzeige regeln, ein- (1) bzw. ausgeblendet (0)
+       show {
+  # Suchregeln
+            rules = 0
+  # Erstellungsinformationen des Hashes
+       #   parsetimes=1
+  # Zweite ebene im Bereichs-dropdown anzeigen
+              #   L2sections=1
+  # Erste ebene im Bereichs-dropdown anzeigen
+       #   L1sections=1
+  # Alle "nicht im menü" oder "im menü verstecken"
+  #(aber nicht "versteckte" seiten) mit anzeigen in section?
+       #  LxALLtypes=0
+  # leeren des Suchfeldes nach suche
+         clearSearchBox = 0
+  # Aktuelles suchwort zu den bisherigen suchwörtern hinzufügen
+        clearSearchBox.enableSubSearchCheckBox=0
+       }
+
+  # die Auswahlfelder für die Suchparameter werden ein- (0) bzw. ausgeblendet (1)
+       blind {
+  # Suchtyp (Ganzes, Wort, Wortteil, ..)
+           type=0
+  # default option (Und, Oder)
+    defOp=0
+  # Bereich(e) der website
+            sections=1
+  # Suche in Medientypen
+            media=1
+  # Sortierung
+            order=0
+  # Ansicht (Sektionshierachie / Liste)
+            group=0
+  # Sprachwahlbox
+            lang=1
+  # Auswahl Sortierung
+            desc=0
+  # Ergebnisse (Anzahl der Treffer pro Seite)
+            results=0
+  # Ansicht: Erweiterte Vorschau
+            extResume = 1
+   }
+}
+
+#Bilddatei aus Seite auslesen (BG)
+lib.headerImageText = COA
+lib.headerImageText {
+  10 = IMG_RESOURCE
+  10.file.treatIdAsReference = 1
+  10.file.import {
+    cObject = TEXT
+    cObject.value = dummy.gif
+    cObject.override {
+      required = 1
+      data = levelmedia: -1, slide
+      listNum = 0
+    }
+  }
+  
+}
+
+#HTML5 kompatible images
+config.disableImgBorderAttr = 1
+
+###Template Start
+page = PAGE
+
+
+
+
+page.10 = TEMPLATE
+page.10 {
+  template = FILE
+  # Link herstellen zu mtauto Template
+  template.file = fileadmin/mtauto/index.html
+}
+
+lib.favicon = TEXT
+lib.favicon.value (
+
+<link rel="icon" type="image/png" href="fileadmin/mtauto/favicon/favicon-16x16.png" sizes="16x16"/>
+<link rel="icon" type="image/png" href="fileadmin/mtauto/favicon/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="fileadmin/mtauto/favicon/favicon-194x194.png" sizes="194x194"/>
+<link rel="apple-touch-icon" sizes="72x72" href="fileadmin/mtauto/favicon/apple-touch-icon-72x72.png"/>
+<link rel="apple-touch-icon" sizes="57x57" href="fileadmin/mtauto/favicon/apple-touch-icon-57x57.png"/>
+<link rel="apple-touch-icon" sizes="60x60" href="fileadmin/mtauto/favicon/apple-touch-icon-60x60.png"/>
+<link rel="apple-touch-icon" sizes="76x76" href="fileadmin/mtauto/favicon/apple-touch-icon-76x76.png"/>
+<link rel="apple-touch-icon" sizes="114x114" href="fileadmin/mtauto/favicon/apple-touch-icon-114x114.png"/>
+<link rel="apple-touch-icon" sizes="120x120" href="fileadmin/mtauto/favicon/apple-touch-icon-120x120.png"/>
+<link rel="apple-touch-icon" sizes="144x144" href="fileadmin/mtauto/favicon/apple-touch-icon-144x144.png"/>
+<link rel="apple-touch-icon" sizes="152x152" href="fileadmin/mtauto/favicon/apple-touch-icon-152x152.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="fileadmin/mtauto/favicon/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/png" href="fileadmin/mtauto/favicon/favicon-96x96.png" sizes="96x96"/>
+<link rel="icon" type="image/png" href="fileadmin/mtauto/favicon/android-chrome-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="fileadmin/mtauto/favicon/manifest.json"/>
+<link rel="shortcut icon" href="fileadmin/mtauto/favicon/favicon.ico"/>
+<meta name="msapplication-TileColor" content="#cccccc"/>
+<meta name="msapplication-TileImage" content="fileadmin/mtauto/favicon/mstile-144x144.png"/>
+<meta name="msapplication-config" content="fileadmin/mtauto/favicon/browserconfig.xml"/>
+<meta name="theme-color" content="#ffffff"/>
+    )
+
+lib.iefix = TEXT
+lib.iefix.value (
+
+<!--[if lt IE 7]>
+<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE7.js"></script>
+<![endif]-->
+  )
+
+
+page.headerData {
+  
+  10 = COA
+  10 {
+    #
+    #10 = TEXT
+    #10.value (
+    #<style type="text/css">
+    #div#header { background-image: url('
+    #)
+    10 = TEXT
+    10.value = <style type="text/css">div#header { background: url('
+    
+    20 < lib.headerImageText
+    30 = TEXT
+    30.value = ')center no-repeat; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='
+    
+    33 < lib.headerImageText
+    35 = TEXT
+    35.value = ', sizingMethod='scale'); -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='
+    37 < lib.headerImageText
+    38 = TEXT
+    38.value = ', sizingMethod='scale')";}
+    
+    40 = TEXT
+    40.value = div#shortcodes { background:  linear-gradient(rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.66)), url('
+    
+    50 < lib.headerImageText
+    60 = TEXT
+    60.value = ') center; background-size: cover;
+    
+    70 = TEXT
+    71 = TEXT
+    70.value = filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/typo3/fileadmin/mtauto/images/wallpaper_dark.jpg', sizingMethod=scale);
+    71.value = -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/typo3/fileadmin/mtauto/images/wallpaper_dark.jpg', sizingMethod='scale')"; }</style>
+  
+     
+    200 < lib.favicon
+    300 < lib.iefix
+  }
+
+  
+}
+
+
+tt_content.stdWrap.innerWrap.cObject {
+  100 = tt_content.stdWrap.innerWrap.cObject.default
+  100 = TEXT
+  100.value = <div class="csc-default col-2 layout-{field:layout}">|</div>
+  100.insertData = 1
+  101 = tt_content.stdWrap.innerWrap.cObject.default
+  101 = TEXT
+  101.value = <div class="csc-default col-2 last layout-{field:layout}">|</div>
+  101.insertData = 1
+  102 = TEXT
+  102.value = <div class="csc-default imagegalery">|</div>
+  102.insertData = 1
+  103 = TEXT
+  103.value = <div class="csc-default fullwidthimage">|</div>
+  103.insertData = 1
+  104 = TEXT
+  104.value = <div class="sliderimg">|</div>
+  104.insertData = 1
+  
+  
+}
+
+tt_content.image.20.1.imageLinkWrap {
+  JSwindow = 0
+  directImageLink = 1
+  linkParams.ATagParams {
+    dataWrap = data-lightbox="lightbox{field:uid}"
+  }
+}
+
+
+tt_content.image.20 {
+    renderMethod = div
+    rendering {
+        div {
+            imageRowStdWrap.dataWrap = <div class="csc-textpic-imagerow"> | </div>
+            imageLastRowStdWrap.dataWrap = <div class="csc-textpic-imagerow csc-textpic-imagerow-last"> | </div>
+            noRowsStdWrap.wrap =
+            oneImageStdWrap.dataWrap =  |
+            imgTagStdWrap.wrap = |
+            editIconsStdWrap.wrap = <div> | </div>
+            }
+     }
+}
+ 
+
+lib.stdheader{
+  #10.22 < .10.1
+  stdWrap.dataWrap =
+  10.22 = TEXT
+  10.22.wrap = <div class="button-red">|</div>
+  10.22.field = header
+  10.23 = TEXT
+  10.23.wrap = <div class="button-slider"><a href="#main">|&nbsp;>>></a></div>
+  10.23.field = header
+  10.24 = TEXT
+  10.24.wrap = <h2><span>|</span></h2>
+  10.24.field = header
+  #10.22.fontTag = <div class="button-team">|</div>
+}
+##tt_content.stdWrap.innerWrap.cObject.100.noTrimWrap = || layout-{field:layout} |
+##tt_content.stdWrap.innerWrap.cObject.100.insertData = 1
+
+
+page {
+  meta {
+    revisit-after = 1 month
+    viewport = width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no
+    apple-mobile-web-app-capable = no
+    apple-mobile-web-app-status-bar-style = black
+    
+     #abstract laut Markup Validator nicht HTML Standard, ev entfernen
+    #abstract.field = abstract
+    #abstract.ifEmpty {
+    #  {$meta.abstract}
+    #}
+
+    keywords.field = keywords
+    keywords.ifEmpty (
+      {$meta.keywords}
+    )
+    description.field = description
+    description.ifEmpty (
+      {$meta.description}
+    )
+    author.field = author
+    author.ifEmpty (
+      {$meta.author}
+    )
+    #copyright laut Markup Validator nicht HTML Standard, ev entfernen
+   # copyright.field = copyright
+  #  copyright.ifEmpty (
+  #    {$meta.copyright}
+ #   )
+    robots = index,follow
+        
+  }
+}
+
+#page.shortcutIcon = fileadmin/mtauto/favicon.ico
+# page.stylesheet = fileadmin/mtauto/styles/default.css
+## JQuery
+page.includeJSFooter.jquery.external = 1
+page.includeJSFooter.jquery = https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js
+
+[browser = msie] && [version =< 9]
+page.includeCSS.file1 = fileadmin/mtauto/styles/lightbox.css
+page.includeCSS.file2 = fileadmin/mtauto/styles/ie.css
+#page.includeJSFooter.bgsizejs = fileadmin/mtauto/js/jquery.backgroundSize.js
+[else]
+page.includeCSS.file1 = fileadmin/mtauto/styles/lightbox.css
+page.includeCSS.file2 = fileadmin/mtauto/styles/default.css
+page.includeJSFooter.bxslider = fileadmin/mtauto/js/jquery.bxslider.min.js
+page.includeJSFooter.stellarjs = fileadmin/mtauto/js/jquery.stellar.min.js
+[global]
+
+page.includeJS.modernizr = fileadmin/mtauto/js/modernizr.custom.57408.js
+page.includeJSFooter.localjs = fileadmin/mtauto/js/iscroll.js
+page.includeJSFooter.localjs = fileadmin/mtauto/js/jquery.ddslick.min.js
+page.includeJSFooter.lightbox = fileadmin/mtauto/js/lightbox.min.js
+page.includeJSFooter.localjs = fileadmin/mtauto/js/local.js
+
+
+page.10.workOnSubpart = DOCUMENT
+
+temp.navi = COA
+temp.navi {
+  10 = TEXT
+  10.value = <div id="burger"><span></span><span></span><span></span></div>
+  
+  20 = TEXT
+  20.value = <ul id="mainnavi" class="noscript">
+  90 = TEXT
+  90.value = </ul>
+  
+  30 = HMENU
+  30.special = list
+  30.special.value = 2,4,13,3,5,6
+  30.1 = TMENU
+  30.1 {
+    NO = 1
+    NO {
+      allWrap = <li class="navitem">|</li>
+    }
+
+    ACT = 1
+    ACT {
+      allWrap = <li id="current" class="navitem">|</li>
+    }
+  }
+}
+
+lib.bgmusic = TEXT
+lib.bgmusic {
+  value (
+<audio src="/fileadmin/mtauto/bgmusic.mp3" autoplay>
+<p>If you are reading this, it is because your browser does not support the audio element.</p>
+<embed src="/fileadmin/mtauto/bgmusic.mp3" width="180" height="90" hidden="true" />
+</audio>
+  )
+}
+
+page.10.subparts {
+  # MAIN NAVIGATION
+  NAVI < temp.navi
+  
+
+  
+  ## CONTENT PART
+
+  MAIN = CONTENT
+  SHORTCODES = CONTENT
+  BOTTOM = CONTENT
+  SLIDER = CONTENT
+  
+  MAIN < styles.content.get
+  MAIN.select.where = colpos = 1
+    
+  SLIDERIMGS < styles.content.get
+  SLIDERIMGS.select.where = colpos = 13
+  
+  SLIDERIMGSFOOTER < styles.content.get
+  SLIDERIMGSFOOTER.select.where = colpos = 13
+  
+  SLIDER < styles.content.get
+  SLIDER.select.where = colpos = 10
+  
+  SHORTCODES < styles.content.get
+  SHORTCODES.select.where = colpos = 11
+  
+  BOTTOM < styles.content.get
+  BOTTOM.select.where = colpos = 12
+   
+
+  LOGO = TEXT
+  LOGO.value = <a href="http://dev.mt-autoboerse.de" id="logo"><img src="/fileadmin/mtauto/images/logo_mt-autoboerse.png" width="160" height="35" alt="MTautob&ouml;rse"></a>
+
+}
+[globalVar = TSFE:id=2]
+page.10.subparts {
+ MUSIC < lib.bgmusic
+}
+[global]
+temp.suche = TEXT
+  temp.suche.value (
+<form action="index.php?id=8#main" method="post" id="indexedsearch">
+
+ <input name="tx_indexedsearch[sword]" value="Suche ..." class="searchbox-sword" type="text"  onblur="if (this.value == '') {this.value = 'Suche ...';}" onfocus="if (this.value == 'Suche ...') {this.value = '';}"  />
+ <input type="hidden" name="tx_indexedsearch[sections]" value="0" />
+ <input name="tx_indexedsearch[submit_button]" value="Search" type="hidden" />
+
+<input name="search" src="/fileadmin/mtauto/images/suche_button.png" class="searchbox-button always" type="image" alt="Suche" width="49px" height="30px" />
+<div class="sb_shadow">Schatten</div>
+</form>
+  )
+
+
+#temp.burger = TEXT
+#temp.burger.value (
+#  <div id="burger"><span></span><span></span><span></span></div>
+#)
+
+page.10.marks {
+   
+  SCROLLUP = TEXT
+  SCROLLUP.value = <a href="#header" class="scrollup"><div id="scrollup_button">&#65279;</div></a>
+   
+  SEARCH_FIELD < temp.suche
+  
+  // DIVBURGER < temp.burger
+  PARALLAX < temp.parallax
+    
+  }
+}

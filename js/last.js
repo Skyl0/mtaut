@@ -1,0 +1,4 @@
+
+	if ( Modernizr.bgsizecover ) {
+		$.stellar();
+	}	
