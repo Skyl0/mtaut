@@ -2070,6 +2070,13 @@ box-shadow: 0px 0px 5px 0px rgba(227,0,11,1);
 #c9 > .contentwrapper {
 	position:relative;	
 }
+
+@media (max-width: 750px) {
+	#iframeloader {
+		display: none;
+	}
+}
+
 #iframeloader {
 	text-align:center;	
 	background:rgba(255,255,255,0.7);
@@ -2080,9 +2087,11 @@ box-shadow: 0px 0px 5px 0px rgba(227,0,11,1);
 	bottom:0;
 	margin-left:46px;
 }
+
 #iframeloader img {
 	margin-top:350px;	
 }
+
 
 .fullwidthimage .csc-textpic-image img {
 	width:100% !important;
