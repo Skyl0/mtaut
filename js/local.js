@@ -176,10 +176,12 @@ jQuery(document).ready(function($)  {
   
 });
 
-
 $(window).load(function() {    
 var is_safari = navigator.userAgent.indexOf("Safari") > -1;	
 var is_chrome = window.chrome;
+// 
+var dheight = $(document).height;
+// var iwidth = $(window).width;
 
 var slider = $('#slider-imgs .csc-textpic-imagewrap').bxSlider({
   		auto: true,
@@ -188,7 +190,7 @@ var slider = $('#slider-imgs .csc-textpic-imagewrap').bxSlider({
 		captions: false,
 		pager: false,
 		controls: true,
-		pause:5000,
+		pause:2000,
 		autoHover: false,
 		preloadImages: 'all',
 		//useCSS: false,
@@ -197,13 +199,12 @@ var slider = $('#slider-imgs .csc-textpic-imagewrap').bxSlider({
 		
 		onSlideAfter: function() {
 			$bg = $(".fitimage");
-			//resizeBg();
+			
 		},
 		onSliderLoad: function() {
 			/* CENTER IMAGE IF IMG IS SCALED BY HEIGHT - START */
 			$("#slider-imgs .csc-textpic-imagewrap img").each(function(index, element) {
-				//element = $(this).width();
-				//$('#preload').text(index);
+				
 				curimg = $(this).width();
 			});
 			
@@ -231,17 +232,51 @@ var slider = $('#slider-imgs .csc-textpic-imagewrap').bxSlider({
 							.addClass('bgwidth')
 							.css('margin-left','0');
 					}			
-				}                			
+				}                
+				
+				
+							
 				theWindow.resize(resizeBg).trigger("resize");
+				
 				$( window ).resize(function() {
+					//if ($(document).height() != dheight) {
+						dheight = $(document).height();
+						resizeBg();
+						slider.goToSlide(0);
+						//$('body').prepend('<b>W: ' + $(document).height() + '|</b>');
+					//}				
+				});
+				
+				$(document).resize(function(){
+					
+						dheight = $(document).height();
+						resizeBg();
+						slider.goToSlide(0);
+						//$('div#slider').css({"left": "-50%"});
+						$('body').append('<b>D: ' + $(document).height() + '|</b>');
+					
+				});
+				
+			  /*
+			  	$(window).scroll(function() {
+			  		if ($(document).height() != dheight) {
+			  			dheight = $(document).height();
+			  			$("#slider-imgs").css({"left":"-50%"});
+			  			resizeBg();
+			  			$('body').prepend('<i>S: ' + $(document).height() + '|</i>');
+			  		}
+			  		
+			  	}); */
+			  
+								
+				$(window).on("orientationchange",function(){
 					resizeBg();
 					slider.goToSlide(0);
-					//slider.reloadSlider();
-					//$('#slider-imgs').load(document.URL + '#slider-imgs'); ERRORS
-				});
+
+				}); 
+				
 				resizeBg();
-				//slider.reloadSlider();
-				//$('#slider-imgs').load(document.URL +  ' #slider-imgs');
+		
 				
 				if ( Modernizr.bgsizecover && $(window).width() >= 480 && !is_safari) {
 					$.stellar();
@@ -253,21 +288,15 @@ var slider = $('#slider-imgs .csc-textpic-imagewrap').bxSlider({
 	});
 	
 
+
+	
+	
 				
 	/*
 	 * Stellar mit Modernizr Abfrage (Background-size: cover)
 	 * 
 	 */	
-/*
-    var is_safari = navigator.userAgent.indexOf("Safari") > -1;
 
-
-	if ( Modernizr.bgsizecover && $(window).width() >= 480 && !is_safari) {
-		$.stellar();
-	} else {
-		// TODO
-	
-	}	*/
 	if ( Modernizr.bgsizecover && $(window).width() >= 480 && !is_safari) {
 		$.stellar();
 	} else {
@@ -275,17 +304,12 @@ var slider = $('#slider-imgs .csc-textpic-imagewrap').bxSlider({
 	$('#fahrzeugframe').load(function () {
 	    $('#iframeloader').fadeOut('fast');
 	});
+	
 	// IFRAME Loading after Rest
-	
-	//$(document).ready (function(){
-		$('iframe#fahrzeugframe').attr('src','http://www.webmobil24.com/web/de/haendler_homepages/mt-autoboerse/liste.htm?nomenu=1');
-	//)};
-	
-	
+	$('iframe#fahrzeugframe').attr('src','http://www.webmobil24.com/web/de/haendler_homepages/mt-autoboerse/liste.htm?nomenu=1');
+		
 	// #preloader deactivate after Page load
-	$('#preloader').delay(200).fadeOut('slow');
-	
-	
+	$('#preloader').delay(200).fadeOut('slow');	
 	
 	
 });

@@ -68,7 +68,7 @@ div#preloader {
 	position: absolute;
 	animate: all 0.5s;
 	
-	background: #fefefe url("../images/preview.gif") no-repeat fixed center center;
+	background: #fefefe url("../images/frameloader.GIF") no-repeat fixed center center;
 }
 
 .opacityzero {
