@@ -180,7 +180,7 @@ $(window).load(function() {
 var is_safari = navigator.userAgent.indexOf("Safari") > -1;	
 var is_chrome = window.chrome;
 // 
-var dheight = $(document).height;
+var dheight = $(document).height();
 // var iwidth = $(window).width;
 
 var slider = $('#slider-imgs .csc-textpic-imagewrap').bxSlider({
@@ -233,29 +233,42 @@ var slider = $('#slider-imgs .csc-textpic-imagewrap').bxSlider({
 							.css('margin-left','0');
 					}			
 				}                
-				
-				
-							
+										
 				theWindow.resize(resizeBg).trigger("resize");
 				
 				$( window ).resize(function() {
 					//if ($(document).height() != dheight) {
-						dheight = $(document).height();
+					//	dheight = $(document).height();
+					//dheight = $(document).height();
 						resizeBg();
 						slider.goToSlide(0);
-						//$('body').prepend('<b>W: ' + $(document).height() + '|</b>');
+						//$('body').prepend('<span>W: ' + $(document).height() + '|</span>');
 					//}				
 				});
 				
 				$(document).resize(function(){
-					
 						dheight = $(document).height();
 						resizeBg();
 						slider.goToSlide(0);
 						//$('div#slider').css({"left": "-50%"});
-						$('body').append('<b>D: ' + $(document).height() + '|</b>');
+						//$('body').prepend('<i>D: ' + $(document).height() + '|</i>');
 					
 				});
+				
+				$(window).scroll(function(){
+					if ($(document).height() != dheight) {
+						dheight = $(document).height();
+						slider.goToSlide(0);
+						resizeBg(); // TODO maybe go to Slide
+						//$('body').prepend('<b>S: ' + $(document).height() + '|</b>');
+					}
+					
+				});
+				
+				$( window ).on( "scrollstop",function() {
+					slider.goToSlide(0);
+					resizeBg();
+				} );
 				
 			  /*
 			  	$(window).scroll(function() {

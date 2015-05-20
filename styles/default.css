@@ -70,6 +70,14 @@ div#preloader {
 	
 	background: #fefefe url("../images/frameloader.GIF") no-repeat fixed center center;
 }
+div.darken-image {
+	background:rgba(0,0,0,0.25);
+	display:block;
+	z-index:55;
+	width:100%;
+	height:100vh;
+	position:absolute;	
+}
 
 .opacityzero {
 	
@@ -193,8 +201,11 @@ li#current a {
 }
 
 #nav a:hover {
-	color: #B00009;
+	color: #706f6e;
 } 
+#nav li#current a:hover {
+	color: #e3000b;		
+}
 header {
 	position:absolute;
 	width:100%;	
@@ -341,7 +352,7 @@ div#slider {
 	}
 	
 	section {
-		padding-left: 4px !important;
+		padding-left: 0px !important;
 	}
 	/** Suche Fix
 	 * 	
